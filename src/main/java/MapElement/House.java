@@ -1,5 +1,6 @@
 package MapElement;
 
+import Main.NullPlayer;
 import Main.Player;
 
 import java.util.Scanner;
@@ -83,17 +84,17 @@ public class House extends MapElement {
 	private void buyFreeHouse(Player player) {
 		if (player.haveEnoughMoney(getPrice())) {
 			player.payMoney(getPrice());
-			player.buyNewHouse();
-			setOwner(player.getName());
+			player.buyNewHouse(this);
+			setOwner(player);
 		} else noEnoughMoneyInformation(player);
 	}
 
 	private boolean isFreeHouse() {
-		return getOwner().equals("free");
+		return getOwner().getName().equals("free");
 	}
 
 	private boolean isMyHouse(Player player) {
-		return player.getName().equals(getOwner());
+		return player.equals(getOwner());
 	}
 
 	private void updateOrNot(Player player) {
@@ -156,7 +157,7 @@ public class House extends MapElement {
 	}
 
 	public void initialHouse() {
-		setOwner("free");
+		setOwner(new NullPlayer());
 		level = 0;
 	}
 

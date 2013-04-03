@@ -40,7 +40,7 @@ public class RichMap {
 		}
 	}
 
-	public String getOwner(int initialPosition) {
+	public Player getOwner(int initialPosition) {
 		return totalMap[initialPosition].getOwner();
 	}
 
@@ -64,37 +64,24 @@ public class RichMap {
 		else return position;
 	}
 
-	public Boolean isBlockHere(int position) {
-		return totalMap[position].blockIsHere();
-	}
-
-	public Boolean isBombHere(int position) {
-		return totalMap[position].bombIsHere();
-	}
-
 	public void setOwner(int position, Player player) {
-		totalMap[position].setPlayer(player);
+		totalMap[position].setOwner(player);
 	}
 
 	public void sellHouse(Player currentPlayer, int housePosition) {
 		totalMap[housePosition].sellMapElement(currentPlayer);
 	}
 
-	public void eventHappen(Player player, Main main) {
-		String owner = totalMap[player.getPosition()].getOwner();
-		Player ownerPlayer = main.getOwnerPlayer(owner);
+	public void eventHappen(Player player) {
+		Player ownerPlayer = totalMap[player.getPosition()].getOwner();
 		totalMap[player.getPosition()].elementEvent(player, ownerPlayer);
 	}
 
 	public boolean notMeetBlockAndBomb(Player player, int moveDistance) {
 		boolean notMeetBlockOrBomb = true;
 		for (int i = player.getPosition(); i < player.getPosition() + moveDistance; i++) {
-			if (totalMap[i].blockIsHere()) {
-				totalMap[i].getBlockHere().trigger(player, i);
-				notMeetBlockOrBomb = false;
-			}
-			if (totalMap[i].bombIsHere()) {
-				totalMap[i].getBombHere().trigger(player, i);
+			if(!totalMap[i].getTools().isEmpty()){
+				totalMap[i].getTools().get(0).trigger(player,i);
 				notMeetBlockOrBomb = false;
 			}
 		}
@@ -117,4 +104,9 @@ public class RichMap {
 		}
 		System.out.println();
 	}
+
+	public Boolean isToolHere(int position) {
+		return totalMap[position].isToolHere();
+	}
+
 }

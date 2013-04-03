@@ -40,6 +40,7 @@ public class BombTool extends Tool {
 		return BOMB_PRICE / 2;
 	}
 
+	@Override
 	public String getMark(){
 		return BOMB_MARK;
 	}

@@ -1,3 +1,5 @@
+import Main.NullPlayer;
+import Main.Player;
 import Main.RichMap;
 import org.junit.Test;
 
@@ -9,42 +11,42 @@ public class RichMapTest {
 	public void should_be_start_at_position_START() {
 		int startPosition = RichMap.START;
 		RichMap richMap = new RichMap();
-		assertThat(richMap.getOwner(startPosition), is("start"));
+		assertThat(richMap.getOwner(startPosition).getName(), is("start"));
 	}
 
 	@Test
 	public void should_be_hospital_at_position_HOSPITAL() {
 		int hospitalPosition = RichMap.HOSPITAL;
 		RichMap richMap = new RichMap();
-		assertThat(richMap.getOwner(hospitalPosition), is("hospital"));
+		assertThat(richMap.getOwner(hospitalPosition).getName(), is("hospital"));
 	}
 
 	@Test
 	public void should_be_toolHouse_at_position_TOOL_HOUSE() {
 		int toolHousePosition = RichMap.TOOL_HOUSE;
 		RichMap richMap = new RichMap();
-		assertThat(richMap.getOwner(toolHousePosition), is("toolHouse"));
+		assertThat(richMap.getOwner(toolHousePosition).getName(), is("toolHouse"));
 	}
 
 	@Test
 	public void should_be_giftHouse_at_position_GIFT_HOUSE() {
 		int giftHousePosition = RichMap.GIFT_HOUSE;
 		RichMap richMap = new RichMap();
-		assertThat(richMap.getOwner(giftHousePosition), is("giftHouse"));
+		assertThat(richMap.getOwner(giftHousePosition).getName(), is("giftHouse"));
 	}
 
 	@Test
 	public void should_be_prison_at_position_PRISON() {
 		int prisonPosition = RichMap.PRISON;
 		RichMap richMap = new RichMap();
-		assertThat(richMap.getOwner(prisonPosition), is("prison"));
+		assertThat(richMap.getOwner(prisonPosition).getName(), is("prison"));
 	}
 
 	@Test
 	public void should_be_magicHouse_at_position_MAGIC_HOUSE() {
 		int magicHousePosition = RichMap.MAGIC_HOUSE;
 		RichMap richMap = new RichMap();
-		assertThat(richMap.getOwner(magicHousePosition), is("magicHouse"));
+		assertThat(richMap.getOwner(magicHousePosition).getName(), is("magicHouse"));
 	}
 	@Test
 	public void should_be_inside_map_when_input_is_outside_totalMap(){
@@ -57,10 +59,10 @@ public class RichMapTest {
 		int blockPosition=6;
 		int clearCenterPosition=1;
 		RichMap richMap=new RichMap();
-		assertThat(richMap.isBlockHere(blockPosition),is(false));
+		assertThat(richMap.isToolHere(blockPosition),is(false));
 		richMap.setBlock(blockPosition);
-		assertThat(richMap.isBlockHere(blockPosition),is(true));
+		assertThat(richMap.isToolHere(blockPosition),is(true));
 		richMap.clearTool(clearCenterPosition);
-		assertThat(richMap.isBlockHere(blockPosition),is(false));
+		assertThat(richMap.isToolHere(blockPosition),is(false));
 	}
 }

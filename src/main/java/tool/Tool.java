@@ -12,6 +12,8 @@ public abstract class Tool {
 
 	abstract public double getPrice();
 
+	abstract public String getMark();
+
 	public Tool() {
 		this.number = 0;
 	}

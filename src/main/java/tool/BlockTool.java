@@ -38,6 +38,7 @@ public class BlockTool extends Tool {
 		return BLOCK_PRICE / 2;
 	}
 
+	@Override
 	public String getMark(){
 		return BLOCK_MARK;
 	}

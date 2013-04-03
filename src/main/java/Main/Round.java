@@ -82,10 +82,11 @@ public class Round {
 		if (richMap.notMeetBlockAndBomb(currentPlayer, rollDistance)) {
 			currentPlayer.move(rollDistance);
 		}
-		richMap.eventHappen(currentPlayer, main);
+		richMap.eventHappen(currentPlayer);
 	}
 
 	public void sellHouse(int sellHousePosition) {
+		currentPlayer.sellHouse(sellHousePosition);
 		richMap.sellHouse(currentPlayer, sellHousePosition);
 	}
 
@@ -100,6 +101,6 @@ public class Round {
 
 	public void jump(int jumpDistance, Main main) {
 		currentPlayer.moveTo(jumpDistance);
-		richMap.eventHappen(currentPlayer, main);
+		richMap.eventHappen(currentPlayer);
 	}
 }

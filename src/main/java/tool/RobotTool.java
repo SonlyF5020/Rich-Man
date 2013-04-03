@@ -29,6 +29,11 @@ public class RobotTool extends Tool {
 	}
 
 	@Override
+	public String getMark() {
+		return null;
+	}
+
+	@Override
 	public double getSellTicket() {
 		return ROBOT_PRICE / 2;
 	}

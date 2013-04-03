@@ -1,9 +1,12 @@
 package Main;
 
+import MapElement.House;
 import tool.BlockTool;
 import tool.BombTool;
 import tool.RobotTool;
 import tool.Tool;
+
+import java.util.ArrayList;
 
 public class Player {
 	private String name;
@@ -16,6 +19,7 @@ public class Player {
 	private Tool block = new BlockTool();
 	private Tool bomb = new BombTool();
 	private int houseNumber[] = new int[4];
+	private ArrayList<House> property=new ArrayList<House>();
 	private int inHospitalRound;
 	private String mark;
 
@@ -27,7 +31,7 @@ public class Player {
 		this.name = "noBody";
 		this.money = initialMoney;
 		this.ticket = initialTicket;
-		this.inHospitalRound =0;
+		this.inHospitalRound = 0;
 	}
 
 	public Player(String name, double initialMoney, double initialTicket) {
@@ -47,10 +51,10 @@ public class Player {
 		this.robot = new RobotTool(robotNumber);
 	}
 
-	public Player(String name, int money,String mark) {
+	public Player(String name, int money, String mark) {
 		this.name = name;
 		this.money = money;
-		this.mark=mark;
+		this.mark = mark;
 	}
 
 	public void move(int moveDistance) {
@@ -156,8 +160,8 @@ public class Player {
 		return getMoney() >= passFee;
 	}
 
-	public void buyNewHouse() {
-		houseNumber[0]++;
+	public void buyNewHouse(House house) {
+		property.add(house);
 	}
 
 	public void showDetailInformation() {
@@ -165,10 +169,10 @@ public class Player {
 		System.out.println("金钱:" + money);
 		System.out.println("彩券:" + ticket);
 		System.out.println("位置:" + position);
-		System.out.println("地皮:" + houseNumber[0]);
-		System.out.println("茅房:" + houseNumber[1]);
-		System.out.println("洋房:" + houseNumber[2]);
-		System.out.println("摩天楼:" + houseNumber[3]);
+		System.out.println("地皮:" + getHouseNumber(0));
+		System.out.println("茅房:" + getHouseNumber(1));
+		System.out.println("洋房:" + getHouseNumber(2));
+		System.out.println("摩天楼:" + getHouseNumber(3));
 		System.out.println("道具 机器人:" + robot.getNumber() + "个");
 		System.out.println("道具 炸弹:" + bomb.getNumber() + "个");
 		System.out.println("道具 路障:" + block.getNumber() + "个");
@@ -230,21 +234,55 @@ public class Player {
 		getRobotTool().minusOne();
 	}
 
-	public void addHouse(int level) {
-		houseNumber[level]++;
-	}
-
 	public void getUpdateHouse(int level) {
 		houseNumber[level]--;
 		houseNumber[level + 1]++;
 	}
 
 	public int getHouseNumber(int level) {
-		return houseNumber[level];
+		int number=0;
+		for(House house:property){
+			if(level==house.getLevel()){
+				number++;
+			}
+		}
+		return number;
 	}
 
-	public void sellHouse(int level) {
-		houseNumber[level]--;
+	public void sellHouse(int position) {
+		if(haveThisHouse(position)){
+			acceptMoney(getThisHouse(position).getSellMoney());
+			sellHouseInformation(position);
+			getThisHouse(position).initialHouse();
+			property.remove(getThisHouse(position));
+		}
+		else notHaveThisHouseInformation();
+	}
+
+	private House getThisHouse(int position) {
+		for(House house:property){
+			if(position==house.getPosition()){
+				return house;
+			}
+		}
+		return null;
+	}
+
+	private void sellHouseInformation(int position) {
+		System.out.println(name + "以" + property.get(position).getSellMoney() + "的高价卖掉了一块地，大家快来抢啊！");
+	}
+
+	private boolean haveThisHouse(int position) {
+		for (House house : property) {
+			if (position == house.getPosition()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private void notHaveThisHouseInformation() {
+		System.out.println(name+"您并没有此处房产所有权！");
 	}
 
 	public void setBlockNumber(int number) {
@@ -252,11 +290,11 @@ public class Player {
 	}
 
 	public void moveTo(int position) {
-		this.position=position;
+		this.position = position;
 	}
 
 	public void setPosition(int position) {
-		this.position=position;
+		this.position = position;
 	}
 
 	public void setInHospitalRound(int inHospitalRound) {
@@ -275,28 +313,33 @@ public class Player {
 		this.inHospitalRound--;
 	}
 
-	public String getMark(){
+	public String getMark() {
 		return mark;
 	}
 
 	public boolean isNotBroken() {
-		if(money<0){
-			System.out.println(name+"经营不善，输了个精光，退出游戏！");
+		if (money < 0) {
+			System.out.println(name + "经营不善，输了个精光，退出游戏！");
 			return false;
-		}
-		else return true;
+		} else return true;
 	}
 
 	public boolean withGodProtect() {
-		System.out.println("福神附身，可免过路费!");
-		return withGodRounds>0;
+		if (withGodRounds > 0) {
+			System.out.println("福神附身，可免过路费!");
+			return true;
+		} else return false;
 	}
 
 	public boolean isNotFree() {
-		return (inHospitalRound>0)||(inPrisonRound>0);
+		return (inHospitalRound > 0) || (inPrisonRound > 0);
 	}
 
 	public void passOneRoundWithGod() {
 		withGodRounds--;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

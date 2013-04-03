@@ -1,23 +1,22 @@
 package MapElement;
 
-import Main.Main;
-import Main.Player;
-import tool.BlockTool;
-import tool.BombTool;
+import  Main.*;
+import tool.*;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 public abstract class MapElement {
-	private String owner;
-	BombTool bombHere;
-	BlockTool blockHere;
+	private Player owner;
+	private int position;
+	ArrayList <Tool> tools = new ArrayList();
 
 	public MapElement() {
-		this.owner = "free";
-		bombHere = null;
-		blockHere = null;
+		this.owner = new NullPlayer();
 	}
 
 	public MapElement(String name) {
-		this.owner = name;
+		owner = new NullPlayer(name);
 	}
 
 	public abstract void elementEvent(Player player, Player owner);
@@ -27,59 +26,45 @@ public abstract class MapElement {
 	public abstract String getMark();
 
 
-	public String getOwner() {
+	public Player getOwner() {
 		return owner;
 	}
 
 	public void setBomb() {
-		bombHere=new BombTool();
-	}
-
-	public BombTool getBombHere(){
-		return bombHere;
-	}
-
-	public BlockTool getBlockHere(){
-		return blockHere;
+		tools.add(new BombTool());
 	}
 
 	public void setBlock() {
-		blockHere=new BlockTool();
+		tools.add(new BlockTool());
 	}
 
 	public void clearBlockAndBomb() {
-		bombHere=null;
-		blockHere=null;
+		tools.clear();
 	}
 
-	public boolean blockIsHere() {
-		return blockHere!=null;
+	public void setOwner(Player owner) {
+		this.owner = owner;
 	}
 
-	public boolean bombIsHere() {
-		return bombHere!=null;
-	}
-
-	public void setPlayer(Player owner) {
-		this.owner = owner.getName();
-		owner.addHouse(0);
-	}
-
-	public void setOwner(String name) {
-		this.owner = name;
-	}
-
-	public String getMark(Main main,int position) {
-		if(main.getStandPlayer(position)!=null){
+	public String getMark(Main main, int position) {
+		if (main.getStandPlayer(position) != null) {
 			return main.getStandPlayer(position).getMark();
 		}
-		if(bombIsHere()){
-			return bombHere.getMark();
-		}
-		if(blockIsHere()){
-			return blockHere.getMark();
-		}
-		else return getMark();
+		if (!tools.isEmpty()) {
+			return tools.get(tools.size()).getMark();
+		} else return getMark();
+	}
+
+	public ArrayList<Tool> getTools() {
+		return tools;
+	}
+
+	public Boolean isToolHere() {
+		return !tools.isEmpty();
+	}
+
+	public int getPosition() {
+		return position;
 	}
 }
 

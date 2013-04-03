@@ -9,34 +9,34 @@ abstract public class Command {
 		String commandName = getFactCommand(commandFullName);
 		int commandNumber = getCommandNumber(commandFullName);
 
-		if (commandName.equals("ROLL") || commandName.equals("roll")) {
+		if ("roll".equalsIgnoreCase(commandName)) {
 			return new RollCommand();
 		}
-		if (commandName.equals("QUERY") || commandName.equals("query")) {
+		if ("query".equalsIgnoreCase(commandName)) {
 			return new QueryCommand();
 		}
-		if (commandName.equals("QUIT") || commandName.equals("quit")) {
+		if ("quit".equalsIgnoreCase(commandName)) {
 			return new QuitCommand();
 		}
-		if (commandName.equals("BLOCK") || commandName.equals("block")) {
+		if ("block".equalsIgnoreCase(commandName)) {
 			return new BlockCommand(commandNumber);
 		}
-		if (commandName.equals("BOMB") || commandName.equals("bomb")) {
+		if ("bomb".equalsIgnoreCase(commandName)) {
 			return new BombCommand(commandNumber);
 		}
-		if (commandName.equals("ROBOT") || commandName.equals("robot")) {
+		if ("robot".equalsIgnoreCase(commandName)) {
 			return new RobotCommand();
 		}
-		if (commandName.equals("SELL") || commandName.equals("sell")) {
+		if ("sell".equalsIgnoreCase(commandName)) {
 			return new SellCommand(commandNumber);
 		}
-		if (commandName.equals("SELLTOOL") || commandName.equals("selltool")) {
+		if ("selltool".equalsIgnoreCase(commandName)) {
 			return new SellToolCommand(commandNumber);
 		}
-		if (commandName.equals("HELP") || commandName.equals("help")) {
+		if ("help".equalsIgnoreCase(commandName)) {
 			return new HelpCommand();
 		}
-		if(commandName.equals("JUMP")||commandName.equals("jump")){
+		if("jump".equalsIgnoreCase(commandName)){
 			return new JumpCommand(commandNumber);
 		}
 		else return new NullCommand();
