@@ -9,20 +9,23 @@ import tool.Tool;
 import java.util.Scanner;
 
 public class ToolHouse extends MapElement {
-	private static final String TOOL_HOUSE_MARK="T";
+	private static final String TOOL_HOUSE_MARK = "T";
 	Tool bomb = new BombTool();
 	Tool block = new BlockTool();
 	Tool robot = new RobotTool();
+
+	public ToolHouse() {
+		this(0);
+	}
+
+	public ToolHouse(int position) {
+		super("toolHouse", position);
+	}
 
 	@Override
 	public void elementEvent(Player player, Player owner) {
 		arriveToolHouseInformation(player);
 		action(player, playerChose());
-	}
-
-	@Override
-	public void sellMapElement(Player player) {
-		System.out.println(player.getName() + ",这里是道具屋！");
 	}
 
 	@Override
@@ -98,7 +101,5 @@ public class ToolHouse extends MapElement {
 		}
 	}
 
-	public ToolHouse() {
-		super("toolHouse");
-	}
+
 }

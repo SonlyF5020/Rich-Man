@@ -5,7 +5,7 @@ import Main.Round;
 
 public class NullCommand extends Command {
 	@Override
-	public void handleCommand(Round round, Main main) {
+	public void handleCommand(Round round) {
 		round.setRoundIsOver();
 	}
 }

@@ -5,17 +5,12 @@ import Main.Player;
 public class Start extends MapElement {
 	private static final String START_MARK="S";
 
-	public Start() {
-		super("start");
+	public Start(int position){
+		super("start",position);
 	}
 
 	public void elementEvent(Player player, Player owner) {
 		arriveStartInformation(player);
-	}
-
-	@Override
-	public void sellMapElement(Player player) {
-		System.out.println(player.getName() + ",这里是起点！");
 	}
 
 	@Override

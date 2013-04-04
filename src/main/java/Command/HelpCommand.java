@@ -5,7 +5,7 @@ import Main.Round;
 
 public class HelpCommand extends Command {
 	@Override
-	public void handleCommand(Round round, Main main) {
+	public void handleCommand(Round round) {
 		System.out.println("命令一览表\n" +
 				"roll 掷骰子命令，行走1~6步。步数由随即算法产生。\n" +
 				"block n 玩家拥有路障后，可将路障放置到离当前位置前后10步的距离，任一玩\n" +

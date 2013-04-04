@@ -6,20 +6,19 @@ public class TicketField extends MapElement {
 	private static final String TICKET_FIELD_MARK="$";
 	private double ticket;
 
-	public TicketField(double ticket) {
-		super();
+	public TicketField(double ticket,int position) {
+		super("ticketField",position);
 		this.ticket = ticket;
+	}
+
+	public TicketField(double ticket) {
+		this.ticket=ticket;
 	}
 
 	@Override
 	public void elementEvent(Player player, Player owner) {
 		arriveTicketFieldInformation(player, getTicket());
 		action(player);
-	}
-
-	@Override
-	public void sellMapElement(Player player) {
-		System.out.println(player.getName() + ",这里是矿场哦！");
 	}
 
 	@Override

@@ -269,7 +269,7 @@ public class Player {
 	}
 
 	private void sellHouseInformation(int position) {
-		System.out.println(name + "以" + property.get(position).getSellMoney() + "的高价卖掉了一块地，大家快来抢啊！");
+		System.out.println(name + "以" + getThisHouse(position).getSellMoney() + "的高价卖掉了一块地，大家快来抢啊！");
 	}
 
 	private boolean haveThisHouse(int position) {
@@ -341,5 +341,9 @@ public class Player {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public void addHouse(House house) {
+		property.add(house);
 	}
 }

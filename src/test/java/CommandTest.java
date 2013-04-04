@@ -19,7 +19,7 @@ public class CommandTest {
 		Player player = new Player(initialPosition, initialBlockNumber, 0, 0);
 		Round round = new Round(player, richMap);
 		Command command = Command.creator("block 6");
-		command.handleCommand(round, main);
+		command.handleCommand(round);
 		assertThat(player.getBlockNumber(), is(2));
 		assertThat(richMap.isToolHere(6), is(true));
 	}
@@ -33,7 +33,7 @@ public class CommandTest {
 		assertThat(player.getBombNumber(), is(3));
 		assertThat(richMap.isToolHere(6), is(false));
 		Command command = Command.creator("bomb 6");
-		command.handleCommand(round, main);
+		command.handleCommand(round);
 		assertThat(player.getBombNumber(), is(2));
 		assertThat(richMap.isToolHere(6), is(true));
 	}
@@ -51,13 +51,13 @@ public class CommandTest {
 		assertThat(richMap.isToolHere(6), is(false));
 
 		Command command = Command.creator("block 6");
-		command.handleCommand(round, main);
+		command.handleCommand(round);
 		assertThat(player.getBlockNumber(), is(2));
 		assertThat(player.getRobotNumber(),is(3));
 		assertThat(richMap.isToolHere(6), is(true));
 
 		Command command1 = Command.creator("robot");
-		command1.handleCommand(round, main);
+		command1.handleCommand(round);
 		assertThat(player.getBlockNumber(), is(2));
 		assertThat(player.getRobotNumber(),is(2));
 		assertThat(richMap.isToolHere(6), is(false));
@@ -76,13 +76,13 @@ public class CommandTest {
 		assertThat(richMap.isToolHere(6), is(false));
 
 		Command command = Command.creator("BOMB 6");
-		command.handleCommand(round, main);
+		command.handleCommand(round);
 		assertThat(player.getBombNumber(), is(2));
 		assertThat(player.getRobotNumber(),is(3));
 		assertThat(richMap.isToolHere(6), is(true));
 
 		Command command1 = Command.creator("robot");
-		command1.handleCommand(round, main);
+		command1.handleCommand(round);
 		assertThat(player.getBombNumber(), is(2));
 		assertThat(player.getRobotNumber(),is(2));
 		assertThat(richMap.isToolHere(6), is(false));
@@ -103,7 +103,7 @@ public class CommandTest {
 		assertThat(richMap.getOwner(housePosition),is(player));
 
 		Command command = Command.creator("sell "+housePosition);
-		command.handleCommand(round, main);
+		command.handleCommand(round);
 		assertThat(player.getMoney(),is(500.0));
 		assertThat(richMap.getOwner(housePosition).equals(player),is(false));
 		assertThat(player.getHouseNumber(0),is(0));
@@ -124,7 +124,7 @@ public class CommandTest {
 		assertThat(richMap.getOwner(housePosition),is(player));
 
 		Command command = Command.creator("sell "+housePosition);
-		command.handleCommand(round, main);
+		command.handleCommand(round);
 		assertThat(player.getMoney(),is(1100.0));
 		assertThat(richMap.getOwner(housePosition).equals(player),is(false));
 		assertThat(player.getHouseNumber(0),is(0));
@@ -145,7 +145,7 @@ public class CommandTest {
 		assertThat(richMap.getOwner(housePosition),is(player));
 
 		Command command = Command.creator("sell "+(housePosition+1));
-		command.handleCommand(round, main);
+		command.handleCommand(round);
 		assertThat(player.getMoney(), is(100.0));
 		assertThat(richMap.getOwner(housePosition).equals(player),is(true));
 		assertThat(richMap.getOwner(housePosition+1).equals(player),is(false));
@@ -158,7 +158,7 @@ public class CommandTest {
 		RichMap richMap=new RichMap();
 		Round round=new Round(player,richMap);
 		Command command=Command.creator("selltool 1");
-		command.handleCommand(round, main);
+		command.handleCommand(round);
 		assertThat(player.getBlockNumber(),is(1));
 		assertThat(player.getTicket(),is(25.0));
 	}

@@ -4,15 +4,16 @@ import Main.Player;
 
 public class Hospital extends MapElement {
 	private static final String HOSPITAL_MARK="H";
+
+	public Hospital(int position) {
+		super("hospital",position);
+	}
+
 	@Override
 	public void elementEvent(Player player, Player owner) {
 		arriveHospitalInformation(player);
 	}
 
-	@Override
-	public void sellMapElement(Player player) {
-		System.out.println(player.getName() + ",这里是医院哦！");
-	}
 
 	@Override
 	public String getMark() {
@@ -24,7 +25,4 @@ public class Hospital extends MapElement {
 		System.out.println(player.getName() + "在医院");
 	}
 
-	public Hospital() {
-		super("hospital");
-	}
 }

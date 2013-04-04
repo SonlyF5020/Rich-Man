@@ -7,8 +7,8 @@ import java.util.Random;
 
 public class RollCommand extends Command {
 	@Override
-	public void handleCommand(Round round, Main main) {
-		round.move(getRollDistance(), main);
+	public void handleCommand(Round round) {
+		round.move(getRollDistance());
 		round.setRoundIsOver();
 	}
 

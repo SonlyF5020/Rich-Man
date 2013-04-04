@@ -17,11 +17,6 @@ public class GiftHouse extends MapElement {
 	}
 
 	@Override
-	public void sellMapElement(Player player) {
-		System.out.println(player.getName() + ",这里是礼品屋，你卖啥子卖哦？");
-	}
-
-	@Override
 	public String getMark() {
 		return GIFT_HOUSE_MARK;
 	}
@@ -84,7 +79,11 @@ public class GiftHouse extends MapElement {
 		System.out.println(player.getName() + "有礼物恐惧症，没有选择礼物就走了");
 	}
 
+	public GiftHouse(int position) {
+		super("giftHouse", position);
+	}
+
 	public GiftHouse() {
-		super("giftHouse");
+		this(0);
 	}
 }

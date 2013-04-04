@@ -13,12 +13,12 @@ public class RichMap {
 	MapElement[] totalMap = new MapElement[TOTAL_POINT];
 
 	public RichMap() {
-		totalMap[START] = new Start();
-		totalMap[HOSPITAL] = new Hospital();
-		totalMap[TOOL_HOUSE] = new ToolHouse();
-		totalMap[GIFT_HOUSE] = new GiftHouse();
-		totalMap[PRISON] = new Prison();
-		totalMap[MAGIC_HOUSE] = new MagicHouse();
+		totalMap[START] = new Start(START);
+		totalMap[HOSPITAL] = new Hospital(HOSPITAL);
+		totalMap[TOOL_HOUSE] = new ToolHouse(TOOL_HOUSE);
+		totalMap[GIFT_HOUSE] = new GiftHouse(GIFT_HOUSE);
+		totalMap[PRISON] = new Prison(PRISON);
+		totalMap[MAGIC_HOUSE] = new MagicHouse(MAGIC_HOUSE);
 
 		houseSequence(START, HOSPITAL, 200.0);
 		houseSequence(HOSPITAL, TOOL_HOUSE, 200.0);
@@ -26,17 +26,17 @@ public class RichMap {
 		houseSequence(GIFT_HOUSE, PRISON, 300.0);
 		houseSequence(PRISON, MAGIC_HOUSE, 300.0);
 
-		totalMap[MAGIC_HOUSE + 1] = new TicketField(20);
-		totalMap[MAGIC_HOUSE + 2] = new TicketField(80);
-		totalMap[MAGIC_HOUSE + 3] = new TicketField(100);
-		totalMap[MAGIC_HOUSE + 4] = new TicketField(40);
-		totalMap[MAGIC_HOUSE + 5] = new TicketField(80);
-		totalMap[MAGIC_HOUSE + 6] = new TicketField(60);
+		totalMap[MAGIC_HOUSE + 1] = new TicketField(20,MAGIC_HOUSE + 1);
+		totalMap[MAGIC_HOUSE + 2] = new TicketField(80,MAGIC_HOUSE + 2);
+		totalMap[MAGIC_HOUSE + 3] = new TicketField(100,MAGIC_HOUSE + 3);
+		totalMap[MAGIC_HOUSE + 4] = new TicketField(40,MAGIC_HOUSE + 4);
+		totalMap[MAGIC_HOUSE + 5] = new TicketField(80,MAGIC_HOUSE + 5);
+		totalMap[MAGIC_HOUSE + 6] = new TicketField(60,MAGIC_HOUSE + 6);
 	}
 
 	private void houseSequence(int begin, int end, double price) {
 		for (int i = begin + 1; i < end; i++) {
-			totalMap[i] = new House(price, 0);
+			totalMap[i] = new House(price, 0,i);
 		}
 	}
 
@@ -66,10 +66,7 @@ public class RichMap {
 
 	public void setOwner(int position, Player player) {
 		totalMap[position].setOwner(player);
-	}
-
-	public void sellHouse(Player currentPlayer, int housePosition) {
-		totalMap[housePosition].sellMapElement(currentPlayer);
+		player.addHouse((House)totalMap[position]);
 	}
 
 	public void eventHappen(Player player) {

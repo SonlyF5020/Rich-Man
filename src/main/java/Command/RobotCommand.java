@@ -5,7 +5,7 @@ import Main.Round;
 
 public class RobotCommand extends Command {
 	@Override
-	public void handleCommand(Round round, Main main) {
+	public void handleCommand(Round round) {
 		round.useRobot();
 	}
 }

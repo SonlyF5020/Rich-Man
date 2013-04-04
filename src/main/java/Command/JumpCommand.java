@@ -12,7 +12,7 @@ public class JumpCommand extends Command {
 	}
 
 	@Override
-	public void handleCommand(Round round, Main main) {
-		round.jump(jumpDistance,main);
+	public void handleCommand(Round round) {
+		round.jump(jumpDistance);
 	}
 }

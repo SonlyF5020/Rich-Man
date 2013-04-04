@@ -53,5 +53,5 @@ abstract public class Command {
 		else return 0;
 	}
 
-	abstract public void handleCommand(Round round, Main main);
+	abstract public void handleCommand(Round round);
 }

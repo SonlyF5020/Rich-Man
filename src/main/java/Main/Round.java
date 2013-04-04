@@ -20,9 +20,9 @@ public class Round {
 		System.out.println(currentPlayer.getName() + "回合开始！");
 	}
 
-	public void roundProcess(Main main) {
+	public void roundProcess() {
 		Command command = Command.creator(acceptCommand());
-		command.handleCommand(this, main);
+		command.handleCommand(this);
 	}
 
 	private String acceptCommand() {
@@ -37,7 +37,7 @@ public class Round {
 	public void roundRun(Main main) {
 		roundStartInformation();
 		while (roundIsNotOver()) {
-			roundProcess(main);
+			roundProcess();
 		}
 		showMap(main);
 	}
@@ -78,7 +78,7 @@ public class Round {
 		currentPlayer.showDetailInformation();
 	}
 
-	public void move(int rollDistance, Main main) {
+	public void move(int rollDistance) {
 		if (richMap.notMeetBlockAndBomb(currentPlayer, rollDistance)) {
 			currentPlayer.move(rollDistance);
 		}
@@ -87,7 +87,6 @@ public class Round {
 
 	public void sellHouse(int sellHousePosition) {
 		currentPlayer.sellHouse(sellHousePosition);
-		richMap.sellHouse(currentPlayer, sellHousePosition);
 	}
 
 	public void sellTool(int sellToolNumber) {
@@ -99,7 +98,7 @@ public class Round {
 		roundIsNotOver = false;
 	}
 
-	public void jump(int jumpDistance, Main main) {
+	public void jump(int jumpDistance) {
 		currentPlayer.moveTo(jumpDistance);
 		richMap.eventHappen(currentPlayer);
 	}

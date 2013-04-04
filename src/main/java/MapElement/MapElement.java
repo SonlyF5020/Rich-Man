@@ -15,13 +15,16 @@ public abstract class MapElement {
 		this.owner = new NullPlayer();
 	}
 
+	public MapElement(String name,int position){
+		this.owner=new NullPlayer(name);
+		this.position=position;
+	}
+
 	public MapElement(String name) {
-		owner = new NullPlayer(name);
+		this.owner = new NullPlayer(name);
 	}
 
 	public abstract void elementEvent(Player player, Player owner);
-
-	public abstract void sellMapElement(Player currentPlayer);
 
 	public abstract String getMark();
 

@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class QuitCommand extends Command {
 	@Override
-	public void handleCommand(Round round, Main main) {
+	public void handleCommand(Round round) {
 		areYouSureInformation();
 		if (choseYes()) System.exit(-2);
 	}

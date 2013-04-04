@@ -9,8 +9,8 @@ public class House extends MapElement {
 	private double price;
 	private int level;
 
-	public House(double initialPrice, int houseLevel) {
-		super("free");
+	public House(double initialPrice, int houseLevel,int position) {
+		super("free",position);
 		this.price = initialPrice;
 		this.level = houseLevel;
 	}
@@ -21,20 +21,16 @@ public class House extends MapElement {
 		this.level = initialLevel;
 	}
 
+	public House(double housePrice, int houseLevel) {
+		this.price=housePrice;
+		this.level=houseLevel;
+	}
+
 	@Override
 	public void elementEvent(Player player, Player owner) {
 		action(player, owner);
 	}
 
-	@Override
-	public void sellMapElement(Player player) {
-		if (thisIsMyHouse(player)) {
-			player.acceptMoney(getSellMoney());
-			player.sellHouse(level);
-			sellHouseInformation(player);
-			initialHouse();
-		} else notYourHouseInformation();
-	}
 
 	@Override
 	public String getMark() {
@@ -42,7 +38,7 @@ public class House extends MapElement {
 	}
 
 	private void notYourHouseInformation() {
-		System.out.println("这是" + getOwner() + "的房子哦亲！");
+		System.out.println("这是" + getOwner().getName() + "的房子哦亲！");
 	}
 
 	private void sellHouseInformation(Player player) {
@@ -141,7 +137,7 @@ public class House extends MapElement {
 	private boolean choseYes() {
 		Scanner scanner = new Scanner(System.in);
 		String choseResult = scanner.nextLine();
-		return choseResult.equals("Y") || choseResult.equals("y");
+		return "y".equalsIgnoreCase(choseResult);
 	}
 
 	private void levelUp() {
@@ -157,7 +153,7 @@ public class House extends MapElement {
 	}
 
 	public void initialHouse() {
-		setOwner(new NullPlayer());
+		setOwner(new NullPlayer("free"));
 		level = 0;
 	}
 

@@ -6,8 +6,12 @@ public class Prison extends MapElement {
 	private static final String PRISON_MARK="P";
 	private static final int PRISON_DAY = 2;
 
+	public Prison(int position) {
+		super("prison",position);
+	}
+
 	public Prison() {
-		super("prison");
+		this(0);
 	}
 
 	@Override
@@ -16,10 +20,6 @@ public class Prison extends MapElement {
 		setPrison(player);
 	}
 
-	@Override
-	public void sellMapElement(Player player) {
-		System.out.println(player.getName() + ",这里是监狱哦！");
-	}
 
 	@Override
 	public String getMark() {
