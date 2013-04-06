@@ -37,17 +37,6 @@ public class House extends MapElement {
 		return "" + level;
 	}
 
-	private void notYourHouseInformation() {
-		System.out.println("这是" + getOwner().getName() + "的房子哦亲！");
-	}
-
-	private void sellHouseInformation(Player player) {
-		System.out.println(player.getName() + "以" + getSellMoney() + "的高价卖掉了一块地，大家快来抢啊！");
-	}
-
-	private boolean thisIsMyHouse(Player player) {
-		return player.getName().equals(getOwner());
-	}
 
 	public void action(Player player, Player owner) {
 		if (isMyHouse(player)) {
@@ -127,7 +116,6 @@ public class House extends MapElement {
 	public void update(Player player) {
 		if (levelIsNotFull()) {
 			if (player.haveEnoughMoney(getPrice())) {
-				player.getUpdateHouse(getLevel());
 				levelUp();
 				player.payMoney(getPrice());
 			} else noEnoughMoneyInformation(player);

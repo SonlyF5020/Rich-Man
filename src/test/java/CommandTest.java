@@ -153,10 +153,13 @@ public class CommandTest {
 	}
 	@Test
 	public void should_got_25_Tickets_when_sell_a_tool_bomb(){
-		Player player=new Player();
-		player.setBlockNumber(2);
+		int initialBlockNumber=2;
+		int initialPosition=0;
+		Player player=new Player(initialPosition,initialBlockNumber,0,0);
+
 		RichMap richMap=new RichMap();
 		Round round=new Round(player,richMap);
+
 		Command command=Command.creator("selltool 1");
 		command.handleCommand(round);
 		assertThat(player.getBlockNumber(),is(1));

@@ -43,15 +43,6 @@ public class Main {
 		return answer;
 	}
 
-	public Player getOwnerPlayer(String name) {
-		for (int i = 0; i < playerNumber; i++) {
-			if (richPlayer[i].getName().equals(name)) {
-				return richPlayer[i];
-			}
-		}
-		return null;
-	}
-
 	public void runGame() {
 		chosePlayer();
 		playing();

@@ -2,6 +2,9 @@ package Main;
 
 
 import Command.Command;
+import tool.BlockTool;
+import tool.BombTool;
+import tool.RobotTool;
 
 import java.util.Scanner;
 
@@ -29,8 +32,8 @@ public class Round {
 		System.out.println();
 		System.out.print(currentPlayer.getName() + ">");
 		Scanner scanner = new Scanner(System.in);
-		String acceptCommand = scanner.nextLine();
-		return acceptCommand;
+		String acceptCommandString = scanner.nextLine();
+		return acceptCommandString;
 	}
 
 
@@ -63,15 +66,15 @@ public class Round {
 	}
 
 	public void setBlock(int blockDistance) {
-		currentPlayer.setBlock(richMap, RichMap.initial(currentPlayer.getPosition()+blockDistance));
+		currentPlayer.useTool(richMap, RichMap.initial(currentPlayer.getPosition() + blockDistance), new BlockTool());
 	}
 
 	public void setBomb(int bombDistance) {
-		currentPlayer.setBomb(richMap, RichMap.initial(currentPlayer.getPosition()+bombDistance));
+		currentPlayer.useTool(richMap, RichMap.initial(currentPlayer.getPosition() + bombDistance), new BombTool());
 	}
 
 	public void useRobot() {
-		currentPlayer.setRobot(richMap);
+		currentPlayer.useTool(richMap, currentPlayer.getPosition(), new RobotTool());
 	}
 
 	public void showDetailInformation() {

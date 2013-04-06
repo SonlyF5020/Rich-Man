@@ -4,40 +4,24 @@ import Main.Player;
 import Main.RichMap;
 
 public abstract class Tool {
-	int number;
+	private String name;
 
 	abstract public void useTool(RichMap map, int position);
 
-	abstract public void trigger(Player player,int position);
+	abstract public void trigger(Player player, int position);
 
 	abstract public double getPrice();
 
 	abstract public String getMark();
 
-	public Tool() {
-		this.number = 0;
-	}
 
-	public Tool(int number) {
-		this.number = number;
-	}
-
-	public void addOne() {
-		number++;
-	}
-
-	public int getNumber() {
-		return number;
+	public Tool(String name) {
+		this.name = name;
 	}
 
 	public abstract double getSellTicket();
 
-	public void minusOne() {
-		number--;
+	public String getName() {
+		return name;
 	}
-
-	public void setNumber(int number) {
-		this.number = number;
-	}
-
 }

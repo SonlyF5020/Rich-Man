@@ -9,8 +9,7 @@ import java.util.ArrayList;
 public abstract class MapElement {
 	private Player owner;
 	private int position;
-	ArrayList <Tool> tools = new ArrayList();
-
+	ArrayList <Tool> tools = new ArrayList<Tool>();
 	public MapElement() {
 		this.owner = new NullPlayer();
 	}

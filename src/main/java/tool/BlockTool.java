@@ -5,25 +5,22 @@ import Main.RichMap;
 
 public class BlockTool extends Tool {
 	private static final double BLOCK_PRICE = 50.0;
-	private static final String BLOCK_MARK="#";
+	private static final String BLOCK_MARK = "#";
 
-	public BlockTool(int number) {
-		super(number);
-	}
 
 	public BlockTool() {
-		super();
+		super("路障");
 	}
 
 	@Override
 	public void useTool(RichMap map, int position) {
-		System.out.println("地图"+position+"处出现路障！兄弟们注意带粉啊！");
+		System.out.println("地图" + position + "处出现路障！兄弟们注意带粉啊！");
 		map.setBlock(position);
 	}
 
 	@Override
 	public void trigger(Player player, int position) {
-		System.out.println(player.getName()+"遇到"+position+"处的路障，停留在该处！");
+		System.out.println(player.getName() + "遇到" + position + "处的路障，停留在该处！");
 		player.setPosition(position);
 	}
 
@@ -39,7 +36,7 @@ public class BlockTool extends Tool {
 	}
 
 	@Override
-	public String getMark(){
+	public String getMark() {
 		return BLOCK_MARK;
 	}
 

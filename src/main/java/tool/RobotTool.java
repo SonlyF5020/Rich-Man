@@ -6,12 +6,8 @@ import Main.RichMap;
 public class RobotTool extends Tool {
 	private static final double ROBOT_PRICE = 30.0;
 
-	public RobotTool(int number) {
-		super(number);
-	}
-
 	public RobotTool() {
-		super();
+		super("机器人");
 	}
 
 	@Override
@@ -20,7 +16,7 @@ public class RobotTool extends Tool {
 	}
 
 	@Override
-	public void trigger(Player player,int position) {
+	public void trigger(Player player, int position) {
 	}
 
 	@Override

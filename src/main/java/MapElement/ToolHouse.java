@@ -10,9 +10,6 @@ import java.util.Scanner;
 
 public class ToolHouse extends MapElement {
 	private static final String TOOL_HOUSE_MARK = "T";
-	Tool bomb = new BombTool();
-	Tool block = new BlockTool();
-	Tool robot = new RobotTool();
 
 	public ToolHouse() {
 		this(0);
@@ -41,19 +38,31 @@ public class ToolHouse extends MapElement {
 	}
 
 	public void action(Player player, int choseResult) {
+		buyTool(player,choseTool(choseResult));
+	}
+
+	private void buyTool(Player player, Tool tool) {
+		if (tool!=null) {
+			if (player.haveEnoughTicket(tool.getPrice())) {
+				player.payTicket(tool.getPrice());
+				player.addTool(tool);
+				buyToolInformation(player,tool);
+			}
+			else notHaveEnoughTicketInformation(player);
+		}
+		else buyNothingInformation(player);
+	}
+
+	public Tool choseTool(int choseResult) {
 		switch (choseResult) {
 			case 1:
-				buyBlock(player);
-				break;
+				return new BlockTool();
 			case 2:
-				buyRobot(player);
-				break;
+				return new RobotTool();
 			case 3:
-				buyBomb(player);
-				break;
+				return new BombTool();
 			default:
-				buyNothingInformation(player);
-				break;
+				return null;
 		}
 	}
 
@@ -61,45 +70,16 @@ public class ToolHouse extends MapElement {
 		System.out.println(player.getName() + "，欢迎来到道具屋，有三种道具，1>路障,50点券  2>高达,30点券  3>炸弹,50点券");
 	}
 
-	private void buyBombInformation(Player player) {
-		System.out.println(player.getName() + "购买了道具 炸弹 1个！");
-	}
-
-	private void buyRobotInformation(Player player) {
-		System.out.println(player.getName() + "购买了道具 机器人 1个！");
-	}
-
-	private void buyBlockInformation(Player player) {
-		System.out.println(player.getName() + "购买了道具 路障 1个！");
-	}
-
 	private void buyNothingInformation(Player player) {
 		System.out.println(player.getName() + "什么都没有买就走了");
 	}
 
-	private void buyBomb(Player player) {
-		if (player.haveEnoughTicket(bomb.getPrice())) {
-			player.payTicket(bomb.getPrice());
-			player.addBomb();
-			buyBombInformation(player);
-		}
+	private void notHaveEnoughTicketInformation(Player player) {
+		System.out.println(player.getName() + "点券不足！");
 	}
 
-	private void buyBlock(Player player) {
-		if (player.haveEnoughTicket(block.getPrice())) {
-			player.payTicket(block.getPrice());
-			player.addBlock();
-			buyBlockInformation(player);
-		}
+	private void buyToolInformation(Player player,Tool tool) {
+		System.out.println(player.getName() + "购买了道具"+tool.getName()+" 1个！");
 	}
-
-	private void buyRobot(Player player) {
-		if (player.haveEnoughTicket(robot.getPrice())) {
-			player.payTicket(robot.getPrice());
-			player.addRobot();
-			buyRobotInformation(player);
-		}
-	}
-
 
 }

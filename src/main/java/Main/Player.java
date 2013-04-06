@@ -15,11 +15,8 @@ public class Player {
 	private int position;
 	private int withGodRounds;
 	private int inPrisonRound;
-	private Tool robot = new RobotTool();
-	private Tool block = new BlockTool();
-	private Tool bomb = new BombTool();
-	private int houseNumber[] = new int[4];
-	private ArrayList<House> property=new ArrayList<House>();
+	private ArrayList<House> property = new ArrayList<House>();
+	private ArrayList<Tool> playerTool = new ArrayList<Tool>();
 	private int inHospitalRound;
 	private String mark;
 
@@ -46,9 +43,27 @@ public class Player {
 
 	public Player(int position, int blockNumber, int bombNumber, int robotNumber) {
 		this.position = position;
-		this.block = new BlockTool(blockNumber);
-		this.bomb = new BombTool(bombNumber);
-		this.robot = new RobotTool(robotNumber);
+		addBlock(blockNumber);
+		addBomb(bombNumber);
+		addRobot(robotNumber);
+	}
+
+	private void addRobot(int robotNumber) {
+		for (int i = 0; i < robotNumber; i++) {
+			playerTool.add(new RobotTool());
+		}
+	}
+
+	private void addBomb(int bombNumber) {
+		for (int i = 0; i < bombNumber; i++) {
+			playerTool.add(new BombTool());
+		}
+	}
+
+	private void addBlock(int blockNumber) {
+		for (int i = 0; i < blockNumber; i++) {
+			playerTool.add(new BlockTool());
+		}
 	}
 
 	public Player(String name, int money, String mark) {
@@ -112,36 +127,29 @@ public class Player {
 	}
 
 	public boolean haveEnoughTicket(double ticket) {
-		if (getTicket() > ticket) {
-			return true;
-		} else {
-			System.out.println(getName() + "点券不足！");
-			return false;
+		return getTicket() > ticket;
+	}
+
+	public int getToolNumber(Tool tool) {
+		int temp = 0;
+		for (Tool toolTemp : playerTool) {
+			if (tool.getName().equals(toolTemp.getName())) {
+				temp++;
+			}
 		}
+		return temp;
 	}
 
 	public int getBlockNumber() {
-		return block.getNumber();
+		return getToolNumber(new BlockTool());
 	}
 
 	public int getRobotNumber() {
-		return robot.getNumber();
+		return getToolNumber(new RobotTool());
 	}
 
 	public int getBombNumber() {
-		return bomb.getNumber();
-	}
-
-	public void addBlock() {
-		block.addOne();
-	}
-
-	public void addRobot() {
-		robot.addOne();
-	}
-
-	public void addBomb() {
-		bomb.addOne();
+		return getToolNumber(new BombTool());
 	}
 
 	public void givePassFeeTo(Player owner, double passFee) {
@@ -173,41 +181,30 @@ public class Player {
 		System.out.println("茅房:" + getHouseNumber(1));
 		System.out.println("洋房:" + getHouseNumber(2));
 		System.out.println("摩天楼:" + getHouseNumber(3));
-		System.out.println("道具 机器人:" + robot.getNumber() + "个");
-		System.out.println("道具 炸弹:" + bomb.getNumber() + "个");
-		System.out.println("道具 路障:" + block.getNumber() + "个");
+		System.out.println("道具 路障:" + getToolNumber(new BlockTool()) + "个");
+		System.out.println("道具 机器人:" + getToolNumber(new RobotTool()) + "个");
+		System.out.println("道具 炸弹:" + getToolNumber(new BombTool()) + "个");
 	}
 
-	public Tool getBlockTool() {
-		return block;
-	}
 
-	public Tool getBombTool() {
-		return bomb;
-	}
-
-	public Tool getRobotTool() {
-		return robot;
-	}
-
-	public Tool getTool(int sellToolNumber) {
+	private Tool getTool(int sellToolNumber) {
 		switch (sellToolNumber) {
 			case 1:
-				return block;
+				return new BlockTool();
 			case 2:
-				return robot;
+				return new RobotTool();
 			case 3:
-				return bomb;
+				return new BombTool();
 			default:
 				return null;
 		}
 	}
 
 	public void sellTool(int sellToolNumber) {
-		Tool targetTool = getTool(sellToolNumber);
+		Tool targetTool = getThisTool(getTool(sellToolNumber));
 		if (haveThisTool(targetTool)) {
 			acceptTicket(targetTool.getSellTicket());
-			targetTool.minusOne();
+			playerTool.remove(targetTool);
 		} else youDontHaveThisToolInformation();
 	}
 
@@ -216,33 +213,29 @@ public class Player {
 	}
 
 	private boolean haveThisTool(Tool tool) {
-		return (tool != null) && (tool.getNumber() != 0);
+		return (tool != null) && (getToolNumber(tool) != 0);
 	}
 
-	public void setBlock(RichMap richMap, int blockDistance) {
-		getBlockTool().useTool(richMap, blockDistance);
-		getBlockTool().minusOne();
+	public void useTool(RichMap richMap, int distance, Tool tool) {
+		if (haveThisTool(tool)) {
+			getThisTool(tool).useTool(richMap, distance);
+			playerTool.remove(getThisTool(tool));
+		}
 	}
 
-	public void setBomb(RichMap richMap, int bombDistance) {
-		getBombTool().useTool(richMap, bombDistance);
-		getBombTool().minusOne();
-	}
-
-	public void setRobot(RichMap richMap) {
-		getRobotTool().useTool(richMap, getPosition());
-		getRobotTool().minusOne();
-	}
-
-	public void getUpdateHouse(int level) {
-		houseNumber[level]--;
-		houseNumber[level + 1]++;
+	private Tool getThisTool(Tool tool) {
+		for (Tool toolTemp : playerTool) {
+			if (tool.getName().equals(toolTemp.getName())) {
+				return toolTemp;
+			}
+		}
+		return null;
 	}
 
 	public int getHouseNumber(int level) {
-		int number=0;
-		for(House house:property){
-			if(level==house.getLevel()){
+		int number = 0;
+		for (House house : property) {
+			if (level == house.getLevel()) {
 				number++;
 			}
 		}
@@ -250,18 +243,17 @@ public class Player {
 	}
 
 	public void sellHouse(int position) {
-		if(haveThisHouse(position)){
+		if (haveThisHouse(position)) {
 			acceptMoney(getThisHouse(position).getSellMoney());
 			sellHouseInformation(position);
 			getThisHouse(position).initialHouse();
 			property.remove(getThisHouse(position));
-		}
-		else notHaveThisHouseInformation();
+		} else notHaveThisHouseInformation();
 	}
 
 	private House getThisHouse(int position) {
-		for(House house:property){
-			if(position==house.getPosition()){
+		for (House house : property) {
+			if (position == house.getPosition()) {
 				return house;
 			}
 		}
@@ -282,11 +274,7 @@ public class Player {
 	}
 
 	private void notHaveThisHouseInformation() {
-		System.out.println(name+"您并没有此处房产所有权！");
-	}
-
-	public void setBlockNumber(int number) {
-		block.setNumber(number);
+		System.out.println(name + "您并没有此处房产所有权！");
 	}
 
 	public void moveTo(int position) {
@@ -339,11 +327,11 @@ public class Player {
 		withGodRounds--;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public void addHouse(House house) {
 		property.add(house);
+	}
+
+	public void addTool(Tool tool) {
+		playerTool.add(tool);
 	}
 }
