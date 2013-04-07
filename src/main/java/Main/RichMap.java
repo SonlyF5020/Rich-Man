@@ -111,9 +111,7 @@ public class RichMap {
 		totalMap[player.getPosition()].leaveOnePlayer(player);
 	}
 
-	public void initialPlayerPosition(Player[] players) {
-		for(int i=0;i<players.length;i++){
-			totalMap[START].comeOnePlayer(players[i]);
-		}
+	public void initialPlayerPosition(Player player) {
+			totalMap[START].comeOnePlayer(player);
 	}
 }

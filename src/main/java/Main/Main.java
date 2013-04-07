@@ -1,9 +1,10 @@
 package Main;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-	private Player richPlayer[] = new Player[4];
+	private ArrayList<Player> richPlayer = new ArrayList<Player>();
 	private int playerNumber;
 	private RichMap richMap = new RichMap();
 
@@ -14,16 +15,16 @@ public class Main {
 			for (int i = 0; i < playerNumber; i++) {
 				switch (answer.charAt(i)) {
 					case '1':
-						richPlayer[i] = new Player("钱夫人", 10000, "Q");
+						richPlayer.add(new Player("钱夫人", 10000, "Q"));
 						break;
 					case '2':
-						richPlayer[i] = new Player("阿土伯", 8000, "A");
+						richPlayer.add(new Player("阿土伯", 8000, "A"));
 						break;
 					case '3':
-						richPlayer[i] = new Player("孙小美", 10000, "S");
+						richPlayer.add(new Player("孙小美", 10000, "S"));
 						break;
 					case '4':
-						richPlayer[i] = new Player("金贝贝", 20000, "B");
+						richPlayer.add(new Player("金贝贝", 20000, "B"));
 						break;
 					default:
 						errorChosenInformation();
@@ -54,32 +55,40 @@ public class Main {
 	}
 
 	private void playing() {
-		richMap.initialPlayerPosition(richPlayer);
+		initial(richMap,richPlayer);
 		while (getPlayerNumber() > 1) {
 			for (int i = 0; i < playerNumber; i++) {
-				Round round = new Round(richPlayer[i], richMap);
+				Round round = new Round(richPlayer.get(i), richMap);
 				round.roundRun();
+				checkIfAnyOneIsBroken(richPlayer.get(i));
+			}
+		}
+	}
+
+	private void checkIfAnyOneIsBroken(Player player) {
+		if (player.isNotBroken()) {
+			return;
+		}
+		richPlayer.remove(player);
+	}
+
+	private void initial(RichMap map, ArrayList<Player> playerList) {
+		if(!playerList.isEmpty()){
+			for(Player player:playerList){
+				map.initialPlayerPosition(player);
 			}
 		}
 	}
 
 	private Player getWinner() {
-		for (int i = 0; i < playerNumber; i++) {
-			if (richPlayer[i].isNotBroken()) {
-				return richPlayer[i];
-			}
+		if(!richPlayer.isEmpty()){
+			return richPlayer.get(0);
 		}
 		return null;
 	}
 
 	private int getPlayerNumber() {
-		int answer = 0;
-		for (int i = 0; i < playerNumber; i++) {
-			if (richPlayer[i].isNotBroken()) {
-				answer++;
-			}
-		}
-		return answer;
+		return richPlayer.size();
 	}
 
 	public static void main(String[] args) {
