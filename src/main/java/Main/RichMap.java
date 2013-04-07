@@ -70,34 +70,35 @@ public class RichMap {
 	}
 
 	public void eventHappen(Player player) {
+		totalMap[player.getPosition()].comeOnePlayer(player);
 		Player ownerPlayer = totalMap[player.getPosition()].getOwner();
 		totalMap[player.getPosition()].elementEvent(player, ownerPlayer);
 	}
 
-	public boolean notMeetBlockAndBomb(Player player, int moveDistance) {
-		boolean notMeetBlockOrBomb = true;
+	public boolean notMeetTool(Player player, int moveDistance) {
+		boolean notMeetTool = true;
 		for (int i = player.getPosition(); i < player.getPosition() + moveDistance; i++) {
-			if(!totalMap[i].getTools().isEmpty()){
-				totalMap[i].getTools().get(0).trigger(player,i);
-				notMeetBlockOrBomb = false;
+			if (!totalMap[i].getToolsAtHere().isEmpty()) {
+				totalMap[i].getToolsAtHere().get(0).trigger(player, i);
+				notMeetTool = false;
 			}
 		}
-		return notMeetBlockOrBomb;
+		return notMeetTool;
 	}
 
-	public void showMap(Main main) {
+	public void showMap() {
 		for (int i = START; i <= TOOL_HOUSE; i++) {
-			System.out.print(totalMap[i].getMark(main, i));
+			System.out.print(totalMap[i].getMark());
 		}
 		System.out.println();
-		System.out.println(totalMap[initial(START - 1)].getMark(main, initial(START - 1)) + "                                                  " + totalMap[initial(TOOL_HOUSE + 1)].getMark(main, initial(TOOL_HOUSE - 1)));
-		System.out.println(totalMap[initial(START - 2)].getMark(main, initial(START - 2)) + "                                                  " + totalMap[initial(TOOL_HOUSE + 2)].getMark(main, initial(TOOL_HOUSE - 2)));
-		System.out.println(totalMap[initial(START - 3)].getMark(main, initial(START - 3)) + "                                                  " + totalMap[initial(TOOL_HOUSE + 3)].getMark(main, initial(TOOL_HOUSE - 3)));
-		System.out.println(totalMap[initial(START - 4)].getMark(main, initial(START - 4)) + "                                                  " + totalMap[initial(TOOL_HOUSE + 4)].getMark(main, initial(TOOL_HOUSE - 4)));
-		System.out.println(totalMap[initial(START - 5)].getMark(main, initial(START - 5)) + "                                                  " + totalMap[initial(TOOL_HOUSE + 5)].getMark(main, initial(TOOL_HOUSE - 5)));
-		System.out.println(totalMap[initial(START - 6)].getMark(main, initial(START - 6)) + "                                                  " + totalMap[initial(TOOL_HOUSE + 6)].getMark(main, initial(TOOL_HOUSE - 6)));
+		System.out.println(totalMap[initial(START - 1)].getMark() + "                                                  " + totalMap[initial(TOOL_HOUSE + 1)].getMark());
+		System.out.println(totalMap[initial(START - 2)].getMark() + "                                                  " + totalMap[initial(TOOL_HOUSE + 2)].getMark());
+		System.out.println(totalMap[initial(START - 3)].getMark() + "                                                  " + totalMap[initial(TOOL_HOUSE + 3)].getMark());
+		System.out.println(totalMap[initial(START - 4)].getMark() + "                                                  " + totalMap[initial(TOOL_HOUSE + 4)].getMark());
+		System.out.println(totalMap[initial(START - 5)].getMark() + "                                                  " + totalMap[initial(TOOL_HOUSE + 5)].getMark());
+		System.out.println(totalMap[initial(START - 6)].getMark() + "                                                  " + totalMap[initial(TOOL_HOUSE + 6)].getMark());
 		for (int i = MAGIC_HOUSE; i >= GIFT_HOUSE; i--) {
-			System.out.print(totalMap[i].getMark(main, i));
+			System.out.print(totalMap[i].getMark());
 		}
 		System.out.println();
 	}
@@ -106,4 +107,13 @@ public class RichMap {
 		return totalMap[position].isToolHere();
 	}
 
+	public void removeStandPlayer(Player player) {
+		totalMap[player.getPosition()].leaveOnePlayer(player);
+	}
+
+	public void initialPlayerPosition(Player[] players) {
+		for(int i=0;i<players.length;i++){
+			totalMap[START].comeOnePlayer(players[i]);
+		}
+	}
 }

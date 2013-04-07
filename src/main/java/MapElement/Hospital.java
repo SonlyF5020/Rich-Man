@@ -3,10 +3,10 @@ package MapElement;
 import Main.Player;
 
 public class Hospital extends MapElement {
-	private static final String HOSPITAL_MARK="H";
+	private static final String HOSPITAL_MARK = "H";
 
 	public Hospital(int position) {
-		super("hospital",position);
+		super("hospital", position);
 	}
 
 	@Override
@@ -16,7 +16,7 @@ public class Hospital extends MapElement {
 
 
 	@Override
-	public String getMark() {
+	public String getInitialMark() {
 		return HOSPITAL_MARK;
 	}
 

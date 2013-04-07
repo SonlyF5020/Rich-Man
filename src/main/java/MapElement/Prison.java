@@ -3,11 +3,11 @@ package MapElement;
 import Main.Player;
 
 public class Prison extends MapElement {
-	private static final String PRISON_MARK="P";
+	private static final String PRISON_MARK = "P";
 	private static final int PRISON_DAY = 2;
 
 	public Prison(int position) {
-		super("prison",position);
+		super("prison", position);
 	}
 
 	public Prison() {
@@ -22,7 +22,7 @@ public class Prison extends MapElement {
 
 
 	@Override
-	public String getMark() {
+	public String getInitialMark() {
 		return PRISON_MARK;
 	}
 

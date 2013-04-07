@@ -37,16 +37,16 @@ public class Round {
 	}
 
 
-	public void roundRun(Main main) {
+	public void roundRun() {
 		roundStartInformation();
 		while (roundIsNotOver()) {
 			roundProcess();
 		}
-		showMap(main);
+		showMap();
 	}
 
-	private void showMap(Main main) {
-		richMap.showMap(main);
+	private void showMap() {
+		richMap.showMap();
 	}
 
 	private boolean roundIsNotOver() {
@@ -82,7 +82,8 @@ public class Round {
 	}
 
 	public void move(int rollDistance) {
-		if (richMap.notMeetBlockAndBomb(currentPlayer, rollDistance)) {
+		richMap.removeStandPlayer(currentPlayer);
+		if (richMap.notMeetTool(currentPlayer, rollDistance)) {
 			currentPlayer.move(rollDistance);
 		}
 		richMap.eventHappen(currentPlayer);
@@ -102,6 +103,7 @@ public class Round {
 	}
 
 	public void jump(int jumpDistance) {
+		richMap.removeStandPlayer(currentPlayer);
 		currentPlayer.moveTo(jumpDistance);
 		richMap.eventHappen(currentPlayer);
 	}

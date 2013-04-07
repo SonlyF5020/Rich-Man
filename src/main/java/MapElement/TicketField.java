@@ -3,16 +3,16 @@ package MapElement;
 import Main.Player;
 
 public class TicketField extends MapElement {
-	private static final String TICKET_FIELD_MARK="$";
+	private static final String TICKET_FIELD_MARK = "$";
 	private double ticket;
 
-	public TicketField(double ticket,int position) {
-		super("ticketField",position);
+	public TicketField(double ticket, int position) {
+		super("ticketField", position);
 		this.ticket = ticket;
 	}
 
 	public TicketField(double ticket) {
-		this.ticket=ticket;
+		this.ticket = ticket;
 	}
 
 	@Override
@@ -22,7 +22,7 @@ public class TicketField extends MapElement {
 	}
 
 	@Override
-	public String getMark() {
+	public String getInitialMark() {
 		return TICKET_FIELD_MARK;
 	}
 

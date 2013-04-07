@@ -9,8 +9,8 @@ public class House extends MapElement {
 	private double price;
 	private int level;
 
-	public House(double initialPrice, int houseLevel,int position) {
-		super("free",position);
+	public House(double initialPrice, int houseLevel, int position) {
+		super("free", position);
 		this.price = initialPrice;
 		this.level = houseLevel;
 	}
@@ -22,8 +22,8 @@ public class House extends MapElement {
 	}
 
 	public House(double housePrice, int houseLevel) {
-		this.price=housePrice;
-		this.level=houseLevel;
+		this.price = housePrice;
+		this.level = houseLevel;
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class House extends MapElement {
 
 
 	@Override
-	public String getMark() {
+	public String getInitialMark() {
 		return "" + level;
 	}
 
@@ -43,7 +43,7 @@ public class House extends MapElement {
 			updateOrNot(player);
 		} else if (isFreeHouse()) {
 			buyOrNot(player);
-		} else if (player.withGodProtect()||owner.isNotFree()) {
+		} else if (player.withGodProtect() || owner.isNotFree()) {
 		} else {
 			arriveOthersHouseInformation(player, owner, getPassFee());
 			player.givePassFeeTo(owner, getPassFee());

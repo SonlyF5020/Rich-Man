@@ -3,9 +3,10 @@ package MapElement;
 import Main.Player;
 
 public class MagicHouse extends MapElement {
-	private static final String MAGIC_HOUSE_MARK="M";
+	private static final String MAGIC_HOUSE_MARK = "M";
+
 	public MagicHouse(int position) {
-		super("magicHouse",position);
+		super("magicHouse", position);
 	}
 
 	@Override
@@ -14,7 +15,7 @@ public class MagicHouse extends MapElement {
 	}
 
 	@Override
-	public String getMark() {
+	public String getInitialMark() {
 		return MAGIC_HOUSE_MARK;
 	}
 

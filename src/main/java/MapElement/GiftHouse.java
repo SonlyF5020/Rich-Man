@@ -17,7 +17,7 @@ public class GiftHouse extends MapElement {
 	}
 
 	@Override
-	public String getMark() {
+	public String getInitialMark() {
 		return GIFT_HOUSE_MARK;
 	}
 

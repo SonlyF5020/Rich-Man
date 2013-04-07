@@ -26,7 +26,7 @@ public class ToolHouse extends MapElement {
 	}
 
 	@Override
-	public String getMark() {
+	public String getInitialMark() {
 		return TOOL_HOUSE_MARK;
 	}
 
@@ -38,19 +38,13 @@ public class ToolHouse extends MapElement {
 	}
 
 	public void action(Player player, int choseResult) {
-		buyTool(player,choseTool(choseResult));
+		buyTool(player, choseTool(choseResult));
 	}
 
 	private void buyTool(Player player, Tool tool) {
-		if (tool!=null) {
-			if (player.haveEnoughTicket(tool.getPrice())) {
-				player.payTicket(tool.getPrice());
-				player.addTool(tool);
-				buyToolInformation(player,tool);
-			}
-			else notHaveEnoughTicketInformation(player);
-		}
-		else buyNothingInformation(player);
+		if (tool != null) {
+			player.buyNewTool(tool);
+		} else buyNothingInformation(player);
 	}
 
 	public Tool choseTool(int choseResult) {
@@ -72,14 +66,6 @@ public class ToolHouse extends MapElement {
 
 	private void buyNothingInformation(Player player) {
 		System.out.println(player.getName() + "什么都没有买就走了");
-	}
-
-	private void notHaveEnoughTicketInformation(Player player) {
-		System.out.println(player.getName() + "点券不足！");
-	}
-
-	private void buyToolInformation(Player player,Tool tool) {
-		System.out.println(player.getName() + "购买了道具"+tool.getName()+" 1个！");
 	}
 
 }

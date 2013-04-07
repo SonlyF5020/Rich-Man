@@ -334,4 +334,21 @@ public class Player {
 	public void addTool(Tool tool) {
 		playerTool.add(tool);
 	}
+
+	public void buyNewTool(Tool tool) {
+		if (haveEnoughTicket(tool.getPrice())) {
+			payTicket(tool.getPrice());
+			addTool(tool);
+			buyToolInformation(tool);
+		}
+		else notHaveEnoughTicketInformation();
+	}
+
+	private void notHaveEnoughTicketInformation() {
+		System.out.println(name + "点券不足！");
+	}
+
+	private void buyToolInformation(Tool tool) {
+		System.out.println(name + "购买了道具"+tool.getName()+" 1个！");
+	}
 }

@@ -54,10 +54,11 @@ public class Main {
 	}
 
 	private void playing() {
+		richMap.initialPlayerPosition(richPlayer);
 		while (getPlayerNumber() > 1) {
 			for (int i = 0; i < playerNumber; i++) {
 				Round round = new Round(richPlayer[i], richMap);
-				round.roundRun(this);
+				round.roundRun();
 			}
 		}
 	}
@@ -86,12 +87,4 @@ public class Main {
 		richMain.runGame();
 	}
 
-	public Player getStandPlayer(int position) {
-		for (int i = 0; i < playerNumber; i++) {
-			if (richPlayer[i].getPosition() == position) {
-				return richPlayer[i];
-			}
-		}
-		return null;
-	}
 }

@@ -3,10 +3,10 @@ package MapElement;
 import Main.Player;
 
 public class Start extends MapElement {
-	private static final String START_MARK="S";
+	private static final String START_MARK = "S";
 
-	public Start(int position){
-		super("start",position);
+	public Start(int position) {
+		super("start", position);
 	}
 
 	public void elementEvent(Player player, Player owner) {
@@ -14,7 +14,7 @@ public class Start extends MapElement {
 	}
 
 	@Override
-	public String getMark() {
+	public String getInitialMark() {
 		return START_MARK;
 	}
 

@@ -1,5 +1,3 @@
-import Main.NullPlayer;
-import Main.Player;
 import Main.RichMap;
 import org.junit.Test;
 
